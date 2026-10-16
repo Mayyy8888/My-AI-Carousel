@@ -1,0 +1,87 @@
+{
+ "style": "stacked",
+ "top": 720,
+ "fix": {
+  "koga's": "C\u00f4ba's",
+  "koba's": "C\u00f4ba's",
+  "daughter": "Daughter",
+  "or": "rattan,",
+  "tan": "",
+  "luva": "loofah"
+ },
+ "title": "The gift for *anyone* on your list",
+ "emphasis": [
+  "birthdays",
+  "luxury",
+  "Vietnamese",
+  "handcrafted",
+  "wrap",
+  "everything",
+  "smells",
+  "friend",
+  "must"
+ ],
+ "segments": [
+  {
+   "src": "v2.mp4",
+   "start": 3.28,
+   "end": 4.75
+  },
+  {
+   "src": "v2.mp4",
+   "start": 5.56,
+   "end": 6.1
+  },
+  {
+   "src": "v2.mp4",
+   "start": 6.2,
+   "end": 7.9
+  },
+  {
+   "src": "v0.mp4",
+   "start": 4.84,
+   "end": 10.1
+  },
+  {
+   "src": "v0.mp4",
+   "start": 10.2,
+   "end": 13.3
+  },
+  {
+   "src": "v0.mp4",
+   "start": 17.88,
+   "end": 19.85
+  },
+  {
+   "src": "v1.mp4",
+   "start": 6.24,
+   "end": 8.7
+  },
+  {
+   "src": "v1.mp4",
+   "start": 12.0,
+   "end": 16.2
+  },
+  {
+   "src": "v2.mp4",
+   "start": 15.28,
+   "end": 16.2
+  },
+  {
+   "src": "v2.mp4",
+   "start": 16.85,
+   "end": 20.3
+  },
+  {
+   "src": "v2.mp4",
+   "start": 20.32,
+   "end": 22.4
+  }
+ ],
+ "frame": {
+  "w": 1080,
+  "h": 1080,
+  "y": 240
+ },
+ "title_top": 50
+}
