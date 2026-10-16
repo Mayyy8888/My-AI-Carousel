@@ -65,7 +65,8 @@ html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hi
 .w{opacity:0;transform:translateY(14px);transition:none;display:inline-block}
 .w.on{opacity:1;transform:none}
 .big{font:italic 600 128px/1 Serif;color:#F7D417;letter-spacing:-2px;text-shadow:0 3px 18px rgba(0,0,0,.25)}
-.title{position:absolute;top:150px;left:60px;right:60px;text-align:center;font:700 64px/1.1 Grotesk;color:#fff;
+.title .big{font-size:150px;display:inline-block;margin:6px 0}
+.title{position:absolute;top:var(--title-top,170px);left:60px;right:60px;text-align:center;font:700 64px/1.1 Grotesk;color:#fff;
   text-shadow:0 4px 18px rgba(0,0,0,.4)}
 `;
 
@@ -101,7 +102,7 @@ groups.forEach((g, gi) => {
   ph.dataset.s = flat(g)[0].s; ph.dataset.e = flat(g).at(-1).e;
   root.appendChild(ph);
 });
-if (S.title) { const t = document.createElement('div'); t.className = 'title'; t.id = 'title'; t.textContent = S.title; root.appendChild(t); }
+if (S.title) { const t = document.createElement('div'); t.className = 'title'; t.id = 'title'; t.innerHTML = S.title.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\\*([^*]+)\\*/g, '<br><span class="big">$1</span><br>'); root.appendChild(t); }
 const ease = x => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
 window.draw = t => {
   const phs = [...document.querySelectorAll('.ph')];
