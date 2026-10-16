@@ -6,7 +6,9 @@ Edit list JSON:
   "style": "stacked", "top": 1330, "emphasis": ["luxurious"],
   "cover": [200, 1390, 680, 220],             # optional x,y,w,h blur over burned-in subs
   "fix": {"koga's": "Côba's"},                # optional caption word replacements
-  "segments": [{"src": "v0.mp4", "start": 0.0, "end": 4.8}, ...]
+  "segments": [{"src": "v0.mp4", "start": 0.0, "end": 4.8}, ...],
+  "frame": {"w": 1080, "h": 1080, "y": 280},  # optional: crop the 1080x1920 edit (e.g. 1:1); y = crop top
+  "title_top": 60                             # optional: title position in px
 }
 Each source needs a <name>.words.json next to it (pipeline.py or transcribe_offline.py).
 Cuts snap to word boundaries; captions are re-timed onto the new timeline.
@@ -65,7 +67,9 @@ def main(edl_path, out):
         t += d
     n = len(edl["segments"])
     chain = "".join(f"[v{i}][a{i}]" for i in range(n)) + f"concat=n={n}:v=1:a=1[cv][ca]"
-    post = "[cv]eq=saturation=1.06:contrast=1.03,colorbalance=rs=.03:bs=-.03:rm=.02:bm=-.02"
+    fr = edl.get("frame") or {"w": 1080, "h": 1920, "y": 0}
+    crop = "" if (fr["w"], fr["h"]) == (1080, 1920) else f"crop={fr['w']}:{fr['h']}:{(1080 - fr['w']) // 2}:{fr.get('y', 0)},"
+    post = f"[cv]{crop}eq=saturation=1.06:contrast=1.03,colorbalance=rs=.03:bs=-.03:rm=.02:bm=-.02"
     if edl.get("cover"):
         x, y, w, h = edl["cover"]
         post += f",split[m][b];[b]crop={w}:{h}:{x}:{y},boxblur=24:3[bl];[m][bl]overlay={x}:{y}"
@@ -78,6 +82,7 @@ def main(edl_path, out):
     spec = work / "captions.json"
     spec.write_text(json.dumps({"duration": t, "fps": 30, "title": edl.get("title", ""), "words": words,
                                 "style": edl.get("style", "stacked"), "top": edl.get("top"),
+                                "width": fr["w"], "height": fr["h"], "titleTop": edl.get("title_top"),
                                 "emphasis": [e.lower() for e in edl.get("emphasis", [])]}))
     overlay = work / "overlay.webm"
     run(["node", str(HERE / "captions.mjs"), str(spec), str(overlay)])

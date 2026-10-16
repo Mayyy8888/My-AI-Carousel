@@ -1,4 +1,4 @@
-// Renders captions + title to a transparent 1080x1920 WebM with headless Chrome.
+// Renders captions + title to a transparent WebM (default 1080x1920; spec.width/height override) with headless Chrome.
 // Styles: "bold" (3-word chunks, bottom, karaoke highlight) and
 // "stacked" (editorial kinetic type: phrases build line by line, key word in
 // yellow Playfair Display Italic, small white Sen for the rest — brand fonts).
@@ -11,6 +11,7 @@ import { fileURLToPath } from "node:url";
 
 const [specPath, outPath] = process.argv.slice(2);
 const spec = JSON.parse(readFileSync(specPath, "utf8"));
+const W = spec.width || 1080, H = spec.height || 1920;
 const frames = mkdtempSync(join(tmpdir(), "cap-"));
 const fontDir = join(dirname(fileURLToPath(import.meta.url)), "fonts");
 const font = (f) => `data:font/ttf;base64,${readFileSync(join(fontDir, f)).toString("base64")}`;
@@ -58,7 +59,7 @@ function layout(group, emph) {
 const css = `
 @font-face{font-family:Grotesk;src:url(${font("Sen.ttf")})}
 @font-face{font-family:Serif;src:url(${font("PlayfairItalic.ttf")});font-style:italic}
-html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+html,body{margin:0;width:${W}px;height:${H}px;background:transparent;overflow:hidden}
 .ph{position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:4px}
 .ln{display:flex;gap:14px;align-items:baseline;font:700 50px/1.05 Grotesk;color:#fff;letter-spacing:-0.5px;
   text-shadow:0 2px 14px rgba(0,0,0,.35)}
@@ -66,7 +67,7 @@ html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hi
 .w.on{opacity:1;transform:none}
 .big{font:italic 600 128px/1 Serif;color:#F7D417;letter-spacing:-2px;text-shadow:0 3px 18px rgba(0,0,0,.25)}
 .title .big{font-size:150px;display:inline-block;margin:6px 0}
-.title{position:absolute;top:var(--title-top,170px);left:60px;right:60px;text-align:center;font:700 64px/1.1 Grotesk;color:#fff;
+.title{position:absolute;top:${spec.titleTop ?? 170}px;left:60px;right:60px;text-align:center;font:700 64px/1.1 Grotesk;color:#fff;
   text-shadow:0 4px 18px rgba(0,0,0,.4)}
 `;
 
@@ -125,7 +126,7 @@ window.draw = t => {
 
 const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || undefined, args: ["--no-sandbox"] });
 const page = await browser.newPage();
-await page.setViewport({ width: 1080, height: 1920 });
+await page.setViewport({ width: W, height: H });
 await page.setContent(html);
 await page.evaluate(() => document.fonts.ready);
 const n = Math.ceil(spec.duration * spec.fps);
