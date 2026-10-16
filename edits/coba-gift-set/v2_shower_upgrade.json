@@ -1,0 +1,73 @@
+{
+ "style": "stacked",
+ "top": 1330,
+ "cover": [
+  0,
+  1360,
+  1080,
+  280
+ ],
+ "fix": {
+  "koga's": "C\u00f4ba's",
+  "koba's": "C\u00f4ba's",
+  "daughter": "Daughter",
+  "or": "rattan,",
+  "tan": "",
+  "luva": "loofah"
+ },
+ "title": "Gift guide for the *self-care* lover",
+ "emphasis": [
+  "everything",
+  "Vietnamese",
+  "smell",
+  "luxurious",
+  "loofah",
+  "perfect",
+  "pretty",
+  "pre-order",
+  "counter",
+  "hide"
+ ],
+ "segments": [
+  {
+   "src": "v1.mp4",
+   "start": 5.48,
+   "end": 8.7
+  },
+  {
+   "src": "v0.mp4",
+   "start": 4.84,
+   "end": 8.55
+  },
+  {
+   "src": "v1.mp4",
+   "start": 8.8,
+   "end": 12.0
+  },
+  {
+   "src": "v1.mp4",
+   "start": 12.0,
+   "end": 16.2
+  },
+  {
+   "src": "v1.mp4",
+   "start": 16.32,
+   "end": 18.8
+  },
+  {
+   "src": "v2.mp4",
+   "start": 0.48,
+   "end": 2.9
+  },
+  {
+   "src": "v2.mp4",
+   "start": 8.0,
+   "end": 12.6
+  },
+  {
+   "src": "v2.mp4",
+   "start": 12.68,
+   "end": 15.1
+  }
+ ]
+}
