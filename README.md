@@ -30,3 +30,5 @@ python editor/pipeline.py "<url or file>" --start 63.2 --end 118 --title "The ho
 - `--style stacked` — editorial kinetic type (modelled on a reference reel): each sentence builds word by word in the upper third, small white **Sen** with staggered lines, one key word large in yellow **Playfair Display Italic**, soft warm grade. The key word is picked automatically (numbers first, then the longest meaningful word); override with `--emphasis riskiest mother`. Move the block with `--top 600`.
 
 Brand fonts live in `editor/fonts/` (SIL OFL, from Google Fonts).
+
+Claude Code skill: `.claude/skills/short-form-editor/SKILL.md` documents the full workflow.
