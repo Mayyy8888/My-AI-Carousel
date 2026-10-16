@@ -1,0 +1,7 @@
+node_modules/
+work/
+out/
+__pycache__/
+*.mp4
+*.webm
+*.mkv

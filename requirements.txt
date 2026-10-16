@@ -1,0 +1,4 @@
+yt-dlp
+faster-whisper
+opencv-contrib-python-headless<5
+numpy
