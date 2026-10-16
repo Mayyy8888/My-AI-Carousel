@@ -80,21 +80,27 @@ def probe(video):
     return s["width"], s["height"]
 
 
-def render(src, start, end, words, title, out, work):
+def render(src, start, end, words, title, out, work, style="bold", emphasis=(), top=None):
     start, end = snap(words, start, end)
     w, h = probe(src)
-    crop_w = int(h * 9 / 16) // 2 * 2
-    track = face_track(src, start, end)
     vert = work / "vertical.mp4"
-    xexpr = crop_expr(track, w, crop_w).replace(",", "\\,")
+    if w / h <= 9 / 16 + 0.01:  # already vertical: no reframing needed
+        vf = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+    else:
+        crop_w = int(h * 9 / 16) // 2 * 2
+        xexpr = crop_expr(face_track(src, start, end), w, crop_w).replace(",", "\\,")
+        vf = f"crop={crop_w}:{h}:x='{xexpr}':y=0,scale=1080:1920"
+    if style == "stacked":  # soft warm grade of the reference look
+        vf += ",eq=saturation=1.06:contrast=1.03,colorbalance=rs=.03:bs=-.03:rm=.02:bm=-.02"
     run(["ffmpeg", "-y", "-ss", f"{start:.3f}", "-to", f"{end:.3f}", "-i", str(src),
-         "-vf", f"crop={crop_w}:{h}:x='{xexpr}':y=0,scale=1080:1920,setsar=1",
+         "-vf", vf + ",setsar=1,fps=30",
          "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
          "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-c:a", "aac", "-b:a", "192k", str(vert)])
     clip_words = [{**x, "s": x["s"] - start, "e": x["e"] - start} for x in words
                   if x["s"] >= start and x["e"] <= end]
     spec = work / "captions.json"
-    spec.write_text(json.dumps({"duration": end - start, "fps": 30, "title": title, "words": clip_words}))
+    spec.write_text(json.dumps({"duration": end - start, "fps": 30, "title": title, "words": clip_words,
+                                "style": style, "emphasis": [e.lower() for e in emphasis], "top": top}))
     overlay = work / "overlay.webm"
     run(["node", str(HERE / "captions.mjs"), str(spec), str(overlay)])
     run(["ffmpeg", "-y", "-i", str(vert), "-c:v", "libvpx-vp9", "-i", str(overlay),
@@ -109,6 +115,10 @@ def main():
     ap.add_argument("--start", type=float, help="clip start (s)")
     ap.add_argument("--end", type=float, help="clip end (s)")
     ap.add_argument("--title", default="")
+    ap.add_argument("--style", default="bold", choices=["bold", "stacked"],
+                    help="stacked = editorial kinetic type (yellow Playfair italic key word)")
+    ap.add_argument("--emphasis", nargs="*", default=[], help="words to force as the big yellow word")
+    ap.add_argument("--top", type=int, help="stacked: caption block top in px (of 1920)")
     ap.add_argument("--model", default="small")
     ap.add_argument("--transcribe-only", action="store_true", help="dump transcript to pick moments")
     ap.add_argument("-o", "--out", default="out/clip.mp4")
@@ -122,7 +132,7 @@ def main():
         for x in words:
             print(f"{x['s']:8.2f} {x['w']}")
         return
-    render(src, a.start, a.end, words, a.title, Path(a.out), work)
+    render(src, a.start, a.end, words, a.title, Path(a.out), work, a.style, a.emphasis, a.top)
     print(a.out)
 
 
