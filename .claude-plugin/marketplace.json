@@ -1,0 +1,11 @@
+{
+  "name": "my-ai-carousel",
+  "owner": { "name": "Lixibox International" },
+  "plugins": [
+    {
+      "name": "short-form-editor",
+      "source": "./plugins/short-form-editor",
+      "description": "Edit raw footage into vertical short-form videos with brand-style kinetic captions."
+    }
+  ]
+}

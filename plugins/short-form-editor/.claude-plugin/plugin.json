@@ -1,0 +1,7 @@
+{
+  "name": "short-form-editor",
+  "version": "1.0.0",
+  "description": "Edit raw footage into vertical Reels/TikTok/Shorts with word-synced kinetic captions in the brand style (Sen + Playfair Display Italic).",
+  "author": { "name": "Lixibox International" },
+  "keywords": ["video", "reels", "tiktok", "captions", "ffmpeg", "whisper"]
+}
