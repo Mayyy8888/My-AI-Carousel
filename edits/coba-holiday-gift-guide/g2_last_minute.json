@@ -2,10 +2,11 @@
  "style": "stacked",
  "top": 1320,
  "fix": {
-  "koba's": "C\u00f4ba's",
-  "copa's": "C\u00f4ba's",
-  "daughter": "Daughter",
-  "daughter.": "Daughter."
+  "koba's": "CoBa's",
+  "copa's": "CoBa's",
+  "c\u00f4ba's": "CoBa's",
+  "coba's": "CoBa's",
+  "daughter": "Daughter"
  },
  "title": "*Last-minute* gift? The basket is the wrap",
  "emphasis": [

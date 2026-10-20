@@ -1,0 +1,72 @@
+{
+ "style": "stacked",
+ "top": 700,
+ "fix": {
+  "koba's": "CoBa's",
+  "copa's": "CoBa's",
+  "c\u00f4ba's": "CoBa's",
+  "coba's": "CoBa's",
+  "daughter": "Daughter"
+ },
+ "title": "Gifts for *her* she'll actually use",
+ "emphasis": [
+  "luxury",
+  "self-care",
+  "Vietnamese",
+  "gift",
+  "Dior",
+  "sponge",
+  "scrub",
+  "incredible",
+  "luxe",
+  "missing"
+ ],
+ "segments": [
+  {
+   "src": "d.mp4",
+   "start": 7.76,
+   "end": 16.8
+  },
+  {
+   "src": "c.mp4",
+   "start": 4.24,
+   "end": 8.64
+  },
+  {
+   "src": "c.mp4",
+   "start": 10.56,
+   "end": 16.48
+  },
+  {
+   "src": "d.mp4",
+   "start": 16.8,
+   "end": 22.7
+  },
+  {
+   "src": "a.mp4",
+   "start": 0.0,
+   "end": 1.56
+  },
+  {
+   "src": "a.mp4",
+   "start": 1.56,
+   "end": 6.8
+  },
+  {
+   "src": "e.mp4",
+   "start": 6.56,
+   "end": 10.24
+  },
+  {
+   "src": "e.mp4",
+   "start": 18.96,
+   "end": 22.6
+  }
+ ],
+ "frame": {
+  "w": 1080,
+  "h": 1080,
+  "y": 200
+ },
+ "title_top": 40
+}

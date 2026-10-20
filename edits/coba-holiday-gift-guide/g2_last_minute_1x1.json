@@ -1,0 +1,78 @@
+{
+ "style": "stacked",
+ "top": 700,
+ "fix": {
+  "koba's": "CoBa's",
+  "copa's": "CoBa's",
+  "c\u00f4ba's": "CoBa's",
+  "coba's": "CoBa's",
+  "daughter": "Daughter"
+ },
+ "title": "*Last-minute* gift? The basket is the wrap",
+ "emphasis": [
+  "gift",
+  "Dior",
+  "reuse",
+  "Vietnamese",
+  "luxury",
+  "self-care",
+  "tissue",
+  "exfoliate",
+  "incredible",
+  "perfect",
+  "check"
+ ],
+ "segments": [
+  {
+   "src": "c.mp4",
+   "start": 11.28,
+   "end": 13.44
+  },
+  {
+   "src": "c.mp4",
+   "start": 13.44,
+   "end": 16.48
+  },
+  {
+   "src": "e.mp4",
+   "start": 10.24,
+   "end": 13.2
+  },
+  {
+   "src": "c.mp4",
+   "start": 4.24,
+   "end": 8.64
+  },
+  {
+   "src": "d.mp4",
+   "start": 5.6,
+   "end": 16.8
+  },
+  {
+   "src": "b.mp4",
+   "start": 0.0,
+   "end": 4.0
+  },
+  {
+   "src": "a.mp4",
+   "start": 1.56,
+   "end": 6.8
+  },
+  {
+   "src": "e.mp4",
+   "start": 13.2,
+   "end": 15.0
+  },
+  {
+   "src": "e.mp4",
+   "start": 22.6,
+   "end": 23.85
+  }
+ ],
+ "frame": {
+  "w": 1080,
+  "h": 1080,
+  "y": 200
+ },
+ "title_top": 40
+}
