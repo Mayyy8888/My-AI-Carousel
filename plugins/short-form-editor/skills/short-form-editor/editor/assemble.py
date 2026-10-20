@@ -23,6 +23,28 @@ def run(cmd):
     subprocess.run(cmd, check=True)
 
 
+def scene_cuts(src):
+    """Shot changes inside a source (cached next to it)."""
+    cache = src.with_suffix(".cuts.json")
+    if cache.exists():
+        return json.loads(cache.read_text())
+    log = subprocess.run(["ffmpeg", "-i", str(src), "-vf", "select='gt(scene,0.25)',showinfo", "-an", "-f", "null", "-"],
+                         capture_output=True, text=True).stderr
+    cuts = [float(x.split(":")[1]) for x in log.split() if x.startswith("pts_time:")]
+    cache.write_text(json.dumps(cuts))
+    return cuts
+
+
+def flicker_guard(cuts, s, e, win=0.35):
+    """Video-only trims so a segment never starts/ends with a few frames of another shot.
+    Returns (head, tail) seconds to cover by holding the main shot's frame; audio is untouched."""
+    head = max([c - s for c in cuts if 0 < c - s <= win], default=0.0)
+    tail = max([e - c for c in cuts if 0 < e - c <= win], default=0.0)
+    if head + tail >= e - s - 0.2:  # segment too short to repair; leave as is
+        return 0.0, 0.0
+    return head, tail
+
+
 def snap(words, start, end):
     inside = [w for w in words if start - 0.05 <= w["s"] < end]  # a word belongs to the cut if it starts inside it
     if not inside:
@@ -61,7 +83,12 @@ def main(edl_path, out):
         s, e, inside = snap(sw, seg["start"], seg["end"])
         inputs += ["-ss", f"{s:.3f}", "-to", f"{e:.3f}", "-i", str(src)]
         d = e - s
-        filt.append(f"[{i}:v]setpts=PTS-STARTPTS,fps=30,scale=1080:1920,setsar=1[v{i}];"
+        head, tail = flicker_guard(scene_cuts(src), s, e)
+        vtrim = ""
+        if head or tail:
+            vtrim = (f"trim=start={head:.3f}:end={d - tail:.3f},setpts=PTS-STARTPTS,"
+                     f"tpad=start_mode=clone:start_duration={head:.3f}:stop_mode=clone:stop_duration={tail:.3f},")
+        filt.append(f"[{i}:v]setpts=PTS-STARTPTS,fps=30,{vtrim}scale=1080:1920,setsar=1[v{i}];"
                     f"[{i}:a]asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st={d - 0.03:.3f}:d=0.03[a{i}]")
         words += [{"w": w["w"], "s": round(w["s"] - s + t, 3), "e": round(w["e"] - s + t, 3)} for w in inside]
         t += d
