@@ -62,13 +62,13 @@ const css = `
 html,body{margin:0;width:${W}px;height:${H}px;background:transparent;overflow:hidden}
 .ph{position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:4px}
 .ln{display:flex;gap:14px;align-items:baseline;font:700 50px/1.05 Grotesk;color:#fff;letter-spacing:-0.5px;
-  text-shadow:0 2px 14px rgba(0,0,0,.35)}
+  text-shadow:0 2px 3px rgba(0,0,0,.55),0 0 22px rgba(0,0,0,.45)}
 .w{opacity:0;transform:translateY(14px);transition:none;display:inline-block}
 .w.on{opacity:1;transform:none}
-.big{font:italic 600 128px/1 Serif;color:#F7D417;letter-spacing:-2px;text-shadow:0 3px 18px rgba(0,0,0,.25)}
+.big{font:italic 600 128px/1 Serif;color:#F7D417;letter-spacing:-2px;text-shadow:0 2px 4px rgba(0,0,0,.45),0 0 26px rgba(0,0,0,.4)}
 .title .big{font-size:150px;display:inline-block;margin:6px 0}
 .title{position:absolute;top:${spec.titleTop ?? 170}px;left:60px;right:60px;text-align:center;font:700 64px/1.1 Grotesk;color:#fff;
-  text-shadow:0 4px 18px rgba(0,0,0,.4)}
+  text-shadow:0 2px 4px rgba(0,0,0,.55),0 0 22px rgba(0,0,0,.45)}
 `;
 
 const html = `<html><head><style>${css}</style></head><body><div id="root"></div>
